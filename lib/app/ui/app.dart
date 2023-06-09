@@ -1,3 +1,4 @@
+import 'package:app_scope/details.dart';
 import 'package:app_scope/ioc.dart';
 import 'package:auth/ioc.dart';
 import 'package:common/constants.dart';
@@ -29,8 +30,8 @@ class _AppState extends State<App> {
           useMaterial3: true,
         ),
         home: AppScope(
-          init: () => Future<void>.delayed(const Duration(milliseconds: 3000)),
-          initialization: (_) => const SplashScreen(),
+          init: AppScopeDependenciesImpl.init,
+          initialization: (_, state) => SplashScreen(state),
           initialized: (_) => Auth(
             notAuthorized: (_) => const LoginScreen(),
             authorized: (_, user) => UserScope(
