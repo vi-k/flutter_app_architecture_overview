@@ -1,7 +1,13 @@
+import 'package:app_scope/ioc.dart';
+import 'package:auth/ioc.dart';
 import 'package:common/constants.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter_app_architecture_overview/home/ui/home_splash_screen.dart';
+import 'package:user_scope/ioc.dart';
 
 import '../../home/ui/home_screen.dart';
+import '../../login/ui/login.dart';
+import 'splash_screen.dart';
 
 class App extends StatefulWidget {
   const App({super.key});
@@ -22,6 +28,19 @@ class _AppState extends State<App> {
           ),
           useMaterial3: true,
         ),
-        home: const HomeScreen(),
+        home: AppScope(
+          init: () => Future<void>.delayed(const Duration(milliseconds: 3000)),
+          initialization: (_) => const SplashScreen(),
+          initialized: (_) => Auth(
+            notAuthorized: (_) => const LoginScreen(),
+            authorized: (_, user) => UserScope(
+              user: user,
+              init: (user) =>
+                  Future<void>.delayed(const Duration(milliseconds: 3000)),
+              initialization: (context) => const HomeSplashScreen(),
+              initialized: (context) => HomeScreen(user: user),
+            ),
+          ),
+        ),
       );
 }
