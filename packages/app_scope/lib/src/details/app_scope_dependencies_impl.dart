@@ -1,7 +1,8 @@
 import 'package:app_scope/core.dart';
-import 'package:app_scope/src/details/app_settings/app_settings_repository_impl.dart';
-import 'package:app_scope/src/details/app_storage/app_storage_repository_impl.dart';
-import 'package:app_scope/src/details/auth/auth_repository_impl.dart';
+
+import 'app_settings/app_settings_repository_impl.dart';
+import 'app_storage/app_storage_repository_impl.dart';
+import 'auth/auth_repository_impl.dart';
 
 final class AppScopeDependenciesImpl implements AppScopeDependencies {
   AppScopeDependenciesImpl._(
@@ -29,7 +30,6 @@ final class AppScopeDependenciesImpl implements AppScopeDependencies {
     AuthRepository? authRepository;
 
     try {
-      // инициализация
       yield const AppScopeInitialization('storage');
       appStorageRepository = AppStorageRepositoryImpl();
       await appStorageRepository.init();
