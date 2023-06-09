@@ -22,6 +22,7 @@ class _HomeScreenState extends State<HomeScreen> {
           children: [
             _Greetings(widget.user.name),
             const _AppSettingsView(),
+            _OneMoreScreen(widget.user),
           ],
         ),
       );
@@ -46,8 +47,40 @@ class _AppSettingsView extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    final settings = AppScope.of(context).initialAppSettings;
+    final settings = AppSettings.of(context);
 
-    return Text('App someProperty: ${settings.someProperty}');
+    return SwitchListTile(
+      value: settings.someProperty,
+      title: const Text(Strings.appSomeProperty),
+      onChanged: (value) {
+        // ignore: discarded_futures
+        AppSettings.update(
+          context,
+          settings.copyWith(someProperty: value),
+        );
+      },
+    );
   }
+}
+
+class _OneMoreScreen extends StatelessWidget {
+  const _OneMoreScreen(this.user);
+
+  final UserData user;
+
+  @override
+  Widget build(BuildContext context) => ListTile(
+        title: ElevatedButton(
+          onPressed: () {
+            // ignore: discarded_futures
+            Navigator.push<void>(
+              context,
+              MaterialPageRoute(
+                builder: (_) => HomeScreen(user: user),
+              ),
+            );
+          },
+          child: const Text(Strings.oneMoreScreen),
+        ),
+      );
 }

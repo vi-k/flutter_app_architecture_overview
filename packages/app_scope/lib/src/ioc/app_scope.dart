@@ -1,6 +1,7 @@
 import 'dart:async';
 
 import 'package:app_scope/core.dart';
+import 'package:app_scope/src/ioc/app_settings.dart';
 import 'package:flutter/material.dart';
 
 class AppScope extends StatefulWidget {
@@ -48,5 +49,9 @@ class _AppScopeState extends State<AppScope> {
   @override
   Widget build(BuildContext context) => _state is! AppScopeInitialized
       ? widget.initialization(context, _state)
-      : widget.initialized(context);
+      : AppSettings(
+          child: Builder(
+            builder: (context) => widget.initialized(context),
+          ),
+        );
 }

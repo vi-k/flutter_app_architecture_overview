@@ -2,6 +2,7 @@ import 'package:app_scope/details.dart';
 import 'package:app_scope/ioc.dart';
 import 'package:auth/ioc.dart';
 import 'package:common/constants.dart';
+import 'package:common/ui.dart';
 import 'package:flutter/material.dart';
 import 'package:user_scope/ioc.dart';
 
@@ -39,7 +40,9 @@ class _AppState extends State<App> {
               init: (user) =>
                   Future<void>.delayed(const Duration(milliseconds: 3000)),
               initialization: (_) => const HomeSplashScreen(),
-              initialized: (_) => HomeScreen(user: user),
+              initialized: (_) => Node(
+                child: HomeScreen(user: user),
+              ),
             ),
           ),
         ),
