@@ -1,0 +1,22 @@
+name: app_scope
+description: A new Flutter package project.
+version: 0.0.1
+publish_to: 'none' # Remove this line if you wish to publish to pub.dev
+
+environment:
+  sdk: '>=3.1.0-89.0.dev <4.0.0'
+  flutter: ">=1.17.0"
+
+dependencies:
+  common:
+    path: ../common
+  flutter:
+    sdk: flutter
+  meta: ^1.9.1
+
+dev_dependencies:
+  flutter_lints: ^2.0.0
+  flutter_test:
+    sdk: flutter
+
+flutter:

@@ -1,23 +1,20 @@
-name: flutter_app_architecture_overview
-description: A new Flutter project.
+name: auth
+description: A new Flutter package project.
+version: 0.0.1
 publish_to: 'none' # Remove this line if you wish to publish to pub.dev
-
-version: 1.0.0+1
 
 environment:
   sdk: '>=3.1.0-89.0.dev <4.0.0'
+  flutter: ">=1.17.0"
 
 dependencies:
   app_scope:
-    path: packages/app_scope
-  auth:
-    path: packages/auth
+    path: ../app_scope
   common:
-    path: packages/common
+    path: ../common
   flutter:
     sdk: flutter
-  user_scope:
-    path: packages/user_scope
+  meta: ^1.9.1
 
 dev_dependencies:
   flutter_lints: ^2.0.0
@@ -25,4 +22,3 @@ dev_dependencies:
     sdk: flutter
 
 flutter:
-  uses-material-design: true
