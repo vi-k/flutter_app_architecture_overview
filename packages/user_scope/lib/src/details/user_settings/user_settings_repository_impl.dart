@@ -12,7 +12,7 @@ class UserSettingsRepositoryImpl implements UserSettingsRepository {
 
   @override
   Future<void> init() async {
-    await Future<void>.delayed(const Duration(milliseconds: 500));
+    await Future<void>.delayed(const Duration(milliseconds: 200));
   }
 
   @override
@@ -20,7 +20,7 @@ class UserSettingsRepositoryImpl implements UserSettingsRepository {
 
   @override
   Future<UserSettingsData> load() async {
-    await Future<void>.delayed(const Duration(milliseconds: 500));
+    await Future<void>.delayed(const Duration(milliseconds: 200));
 
     return _mockUsersStorage[user.name] ??
         const UserSettingsData(someProperty: true);

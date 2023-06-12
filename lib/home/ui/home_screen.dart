@@ -4,6 +4,8 @@ import 'package:common/constants.dart';
 import 'package:flutter/material.dart';
 import 'package:user_scope/ioc.dart';
 
+import '../../search/ui/search_screen.dart';
+
 class HomeScreen extends StatefulWidget {
   const HomeScreen({super.key});
 
@@ -23,6 +25,7 @@ class _HomeScreenState extends State<HomeScreen> {
             _AppSettingsView(),
             _UserSettingsView(),
             _OneMoreScreen(),
+            _Search(),
             _AuthSelector(),
           ],
         ),
@@ -99,6 +102,26 @@ class _OneMoreScreen extends StatelessWidget {
             );
           },
           child: const Text(Strings.oneMoreScreen),
+        ),
+      );
+}
+
+class _Search extends StatelessWidget {
+  const _Search();
+
+  @override
+  Widget build(BuildContext context) => ListTile(
+        title: ElevatedButton(
+          onPressed: () {
+            // ignore: discarded_futures
+            Navigator.push(
+              context,
+              MaterialPageRoute<void>(
+                builder: (_) => const SearchScreen(),
+              ),
+            );
+          },
+          child: const Text(Strings.searchTitle),
         ),
       );
 }

@@ -14,7 +14,7 @@ class AuthRepositoryImpl implements AuthRepository {
 
   @override
   Future<void> init() async {
-    await Future<void>.delayed(const Duration(milliseconds: 300));
+    await Future<void>.delayed(const Duration(milliseconds: 200));
 
     _controller = StreamController<UserData?>();
   }
@@ -26,14 +26,14 @@ class AuthRepositoryImpl implements AuthRepository {
 
   @override
   Future<void> login(String name) async {
-    await Future<void>.delayed(const Duration(milliseconds: 300));
+    await Future<void>.delayed(const Duration(milliseconds: 200));
 
     _setUser(UserData(name: name));
   }
 
   @override
   Future<void> logout() async {
-    await Future<void>.delayed(const Duration(milliseconds: 300));
+    await Future<void>.delayed(const Duration(milliseconds: 200));
 
     _setUser(null);
   }

@@ -7,7 +7,7 @@ class AppSettingsRepositoryImpl implements AppSettingsRepository {
 
   @override
   Future<void> init() async {
-    await Future<void>.delayed(const Duration(milliseconds: 500));
+    await Future<void>.delayed(const Duration(milliseconds: 200));
   }
 
   @override
@@ -15,7 +15,7 @@ class AppSettingsRepositoryImpl implements AppSettingsRepository {
 
   @override
   Future<AppSettingsData> load() async {
-    await Future<void>.delayed(const Duration(milliseconds: 500));
+    await Future<void>.delayed(const Duration(milliseconds: 200));
 
     return const AppSettingsData(someProperty: true);
   }
