@@ -1,9 +1,8 @@
 import 'dart:async';
 
 import 'package:flutter/material.dart';
+import 'package:user_scope/core.dart';
 
-import '../core/user_settings/user_settings_data.dart';
-import '../core/user_settings/user_settings_repository.dart';
 import 'user_scope.dart';
 
 class UserSettings extends StatefulWidget {

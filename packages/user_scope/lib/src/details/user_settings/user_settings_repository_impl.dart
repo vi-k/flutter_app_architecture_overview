@@ -1,9 +1,7 @@
 import 'dart:async';
 
 import 'package:app_scope/core.dart';
-
-import '../../core/user_settings/user_settings_data.dart';
-import '../../core/user_settings/user_settings_repository.dart';
+import 'package:user_scope/core.dart';
 
 final _mockUsersStorage = <String, UserSettingsData>{};
 

@@ -1,10 +1,6 @@
 import 'package:app_scope/core.dart';
+import 'package:user_scope/core.dart';
 
-import '../core/search/search_repository.dart';
-import '../core/user_scope_dependencies.dart';
-import '../core/user_scope_state.dart';
-import '../core/user_settings/user_settings_data.dart';
-import '../core/user_settings/user_settings_repository.dart';
 import 'search/search_repository_impl.dart';
 import 'user_settings/user_settings_repository_impl.dart';
 

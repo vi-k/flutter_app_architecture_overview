@@ -1,4 +1,4 @@
-import 'package:app_scope/core.dart';
+import 'app_scope_dependencies.dart';
 
 sealed class AppScopeState {
   const AppScopeState();

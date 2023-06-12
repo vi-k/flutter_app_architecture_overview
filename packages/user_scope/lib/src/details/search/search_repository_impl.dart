@@ -2,8 +2,7 @@ import 'dart:async';
 import 'dart:math';
 
 import 'package:app_scope/core.dart';
-
-import '../../core/search/search_repository.dart';
+import 'package:user_scope/core.dart';
 
 class SearchRepositoryImpl implements SearchRepository {
   SearchRepositoryImpl(this.user);
