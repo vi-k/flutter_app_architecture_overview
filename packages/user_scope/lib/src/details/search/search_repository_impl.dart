@@ -20,5 +20,11 @@ class SearchRepositoryImpl implements SearchRepository {
   Future<void> dispose() async {}
 
   @override
-  Future<List<String>> search(String text) => throw UnimplementedError();
+  Future<List<String>> search(String text) async {
+    await Future<void>.delayed(
+      Duration(milliseconds: random.nextInt(1000)),
+    );
+
+    return [text];
+  }
 }
