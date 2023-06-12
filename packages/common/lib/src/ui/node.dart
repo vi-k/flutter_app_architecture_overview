@@ -88,7 +88,8 @@ class NodeBackButton extends StatelessWidget {
               },
             );
           }
-          unawaited(navigator?.maybePop());
+          // ignore: discarded_futures
+          navigator?.maybePop();
         },
       );
 }

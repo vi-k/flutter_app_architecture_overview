@@ -38,9 +38,6 @@ final class UserScopeDependenciesImpl implements UserScopeDependencies {
       searchRepository = SearchRepositoryImpl(user);
       await searchRepository.init();
 
-      yield const UserScopeInitialization('success');
-      await Future<void>.delayed(const Duration(milliseconds: 1000));
-
       yield UserScopeInitialized(
         UserScopeDependenciesImpl._(
           userSettingsRepository,

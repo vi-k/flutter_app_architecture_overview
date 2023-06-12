@@ -21,5 +21,5 @@ class SearchRepositoryImpl implements SearchRepository {
   Future<void> dispose() async {}
 
   @override
-  Future<List<String>> search(String message) => throw UnimplementedError();
+  Future<List<String>> search(String text) => throw UnimplementedError();
 }

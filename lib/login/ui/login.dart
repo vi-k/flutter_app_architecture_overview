@@ -39,13 +39,15 @@ class _LoginScreenState extends State<LoginScreen> {
 //         children: [
 //           ElevatedButton(
 //             onPressed: () {
-//               unawaited(Auth.of(context).login(Strings.user1));
+//               // ignore: discarded_futures
+//               Auth.of(context).login(Strings.user1);
 //             },
 //             child: const Text(Strings.user1),
 //           ),
 //           ElevatedButton(
 //             onPressed: () {
-//               unawaited(Auth.of(context).login(Strings.user2));
+//               // ignore: discarded_futures
+//               Auth.of(context).login(Strings.user2);
 //             },
 //             child: const Text(Strings.user2),
 //           ),
