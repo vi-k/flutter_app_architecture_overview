@@ -5,6 +5,7 @@ import 'package:flutter/material.dart';
 
 import '../core/user_scope_dependencies.dart';
 import '../core/user_scope_state.dart';
+import 'user_settings.dart';
 
 class UserScope extends StatefulWidget {
   const UserScope({
@@ -16,11 +17,9 @@ class UserScope extends StatefulWidget {
   });
 
   final UserData user;
-  final Future<void> Function(UserData user) init;
-  // final Stream<UserScopeState> Function(UserData user) init;
-  final Widget Function(BuildContext context) initialization;
-  // final Widget Function(BuildContext context, UserScopeState state)
-  // initialization;
+  final Stream<UserScopeState> Function(UserData user) init;
+  final Widget Function(BuildContext context, UserScopeState state)
+      initialization;
   final Widget Function(BuildContext context) initialized;
 
   static UserScopeDependencies of(BuildContext context) =>
@@ -35,42 +34,29 @@ class UserScope extends StatefulWidget {
 }
 
 class _UserScopeState extends State<UserScope> {
-  bool _initialized = false;
   UserScopeState _state = const UserScopeIdle();
 
   @override
   void initState() {
     super.initState();
 
-    // ignore: discarded_futures
-    widget.init(widget.user).then((value) {
+    widget.init(widget.user).listen((state) {
       setState(() {
-        _initialized = true;
+        _state = state;
       });
+
+      if (state is UserScopeFailed) {
+        Error.throwWithStackTrace(state.error, state.stackTrace);
+      }
     });
-
-    // widget.init(widget.user).listen((state) {
-    //   setState(() {
-    //     _state = state;
-    //   });
-
-    //   if (state is UserScopeFailed) {
-    //     Error.throwWithStackTrace(state.error, state.stackTrace);
-    //   }
-    // });
   }
 
   @override
-  Widget build(BuildContext context) => !_initialized
-      ? widget.initialization(context)
-      : widget.initialized(context);
-
-  // @override
-  // Widget build(BuildContext context) => _state is! UserScopeInitialized
-  //     ? widget.initialization(context, _state)
-  //     : UserSettings(
-  //         child: Builder(
-  //           builder: (context) => widget.initialized(context),
-  //         ),
-  //       );
+  Widget build(BuildContext context) => _state is! UserScopeInitialized
+      ? widget.initialization(context, _state)
+      : UserSettings(
+          child: Builder(
+            builder: (context) => widget.initialized(context),
+          ),
+        );
 }

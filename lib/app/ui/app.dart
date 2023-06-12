@@ -4,6 +4,7 @@ import 'package:auth/ioc.dart';
 import 'package:common/constants.dart';
 import 'package:common/ui.dart';
 import 'package:flutter/material.dart';
+import 'package:user_scope/details.dart';
 import 'package:user_scope/ioc.dart';
 
 import '../../home/ui/home_screen.dart';
@@ -35,13 +36,18 @@ class _AppState extends State<App> {
           initialization: (_, state) => SplashScreen(state),
           initialized: (_) => Auth(
             notAuthorized: (_) => const LoginScreen(),
-            authorized: (_, user) => UserScope(
-              user: user,
-              init: (user) =>
-                  Future<void>.delayed(const Duration(milliseconds: 3000)),
-              initialization: (_) => const HomeSplashScreen(),
-              initialized: (_) => Node(
-                child: HomeScreen(user: user),
+            authorized: (_, user) => KeyedSubtree(
+              key: ValueKey(user),
+              child: User(
+                user: user,
+                child: UserScope(
+                  user: user,
+                  init: UserScopeDependenciesImpl.init,
+                  initialization: (_, state) => HomeSplashScreen(state),
+                  initialized: (_) => const Node(
+                    child: HomeScreen(),
+                  ),
+                ),
               ),
             ),
           ),

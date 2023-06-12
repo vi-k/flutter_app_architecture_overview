@@ -1,12 +1,11 @@
-import 'package:app_scope/core.dart';
 import 'package:app_scope/ioc.dart';
+import 'package:auth/ioc.dart';
 import 'package:common/constants.dart';
 import 'package:flutter/material.dart';
+import 'package:user_scope/ioc.dart';
 
 class HomeScreen extends StatefulWidget {
-  const HomeScreen({super.key, required this.user});
-
-  final UserData user;
+  const HomeScreen({super.key});
 
   @override
   State<HomeScreen> createState() => _HomeScreenState();
@@ -19,24 +18,24 @@ class _HomeScreenState extends State<HomeScreen> {
           title: const Text(Strings.homeTitle),
         ),
         body: ListView(
-          children: [
-            _Greetings(widget.user.name),
-            const _AppSettingsView(),
-            _OneMoreScreen(widget.user),
+          children: const [
+            _Greetings(),
+            _AppSettingsView(),
+            _UserSettingsView(),
+            _OneMoreScreen(),
+            _AuthSelector(),
           ],
         ),
       );
 }
 
 class _Greetings extends StatelessWidget {
-  const _Greetings(this.name);
-
-  final String name;
+  const _Greetings();
 
   @override
   Widget build(BuildContext context) => ListTile(
         title: Text(
-          'Hello $name',
+          'Hello ${User.of(context).name}',
           textAlign: TextAlign.center,
         ),
       );
@@ -63,31 +62,29 @@ class _AppSettingsView extends StatelessWidget {
   }
 }
 
-// class _UserSettingsView extends StatelessWidget {
-//   const _UserSettingsView();
+class _UserSettingsView extends StatelessWidget {
+  const _UserSettingsView();
 
-//   @override
-//   Widget build(BuildContext context) {
-//     final settings = UserSettings.of(context);
+  @override
+  Widget build(BuildContext context) {
+    final settings = UserSettings.of(context);
 
-//     return SwitchListTile(
-//       title: const Text(Strings.userSomeProperty),
-//       value: settings.someProperty,
-//       onChanged: (value) {
-//         // ignore: discarded_futures
-//         UserSettings.update(
-//           context,
-//           settings.copyWith(someProperty: value),
-//         );
-//       },
-//     );
-//   }
-// }
+    return SwitchListTile(
+      title: const Text(Strings.userSomeProperty),
+      value: settings.someProperty,
+      onChanged: (value) {
+        // ignore: discarded_futures
+        UserSettings.update(
+          context,
+          settings.copyWith(someProperty: value),
+        );
+      },
+    );
+  }
+}
 
 class _OneMoreScreen extends StatelessWidget {
-  const _OneMoreScreen(this.user);
-
-  final UserData user;
+  const _OneMoreScreen();
 
   @override
   Widget build(BuildContext context) => ListTile(
@@ -97,7 +94,7 @@ class _OneMoreScreen extends StatelessWidget {
             Navigator.push<void>(
               context,
               MaterialPageRoute(
-                builder: (_) => HomeScreen(user: user),
+                builder: (_) => const HomeScreen(),
               ),
             );
           },
@@ -106,38 +103,38 @@ class _OneMoreScreen extends StatelessWidget {
       );
 }
 
-// class _AuthSelector extends StatelessWidget {
-//   const _AuthSelector();
+class _AuthSelector extends StatelessWidget {
+  const _AuthSelector();
 
-//   @override
-//   Widget build(BuildContext context) => ListTile(
-//         title: Wrap(
-//           alignment: WrapAlignment.spaceEvenly,
-//           spacing: Sizes.defaultSpacing,
-//           runSpacing: Sizes.defaultSpacing,
-//           children: [
-//             ElevatedButton(
-//               onPressed: () {
-//                 // ignore: discarded_futures
-//                 Auth.of(context).login(Strings.user1);
-//               },
-//               child: const Text(Strings.user1),
-//             ),
-//             ElevatedButton(
-//               onPressed: () {
-//                 // ignore: discarded_futures
-//                 Auth.of(context).login(Strings.user2);
-//               },
-//               child: const Text(Strings.user2),
-//             ),
-//             ElevatedButton(
-//               onPressed: () {
-//                 // ignore: discarded_futures
-//                 Auth.of(context).logout();
-//               },
-//               child: const Text(Strings.logout),
-//             ),
-//           ],
-//         ),
-//       );
-// }
+  @override
+  Widget build(BuildContext context) => ListTile(
+        title: Wrap(
+          alignment: WrapAlignment.spaceEvenly,
+          spacing: Sizes.defaultSpacing,
+          runSpacing: Sizes.defaultSpacing,
+          children: [
+            ElevatedButton(
+              onPressed: () {
+                // ignore: discarded_futures
+                Auth.of(context).login(Strings.user1);
+              },
+              child: const Text(Strings.user1),
+            ),
+            ElevatedButton(
+              onPressed: () {
+                // ignore: discarded_futures
+                Auth.of(context).login(Strings.user2);
+              },
+              child: const Text(Strings.user2),
+            ),
+            ElevatedButton(
+              onPressed: () {
+                // ignore: discarded_futures
+                Auth.of(context).logout();
+              },
+              child: const Text(Strings.logout),
+            ),
+          ],
+        ),
+      );
+}

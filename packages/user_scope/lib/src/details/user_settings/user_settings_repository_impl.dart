@@ -5,6 +5,8 @@ import 'package:app_scope/core.dart';
 import '../../core/user_settings/user_settings_data.dart';
 import '../../core/user_settings/user_settings_repository.dart';
 
+final _mockUsersStorage = <String, UserSettingsData>{};
+
 class UserSettingsRepositoryImpl implements UserSettingsRepository {
   UserSettingsRepositoryImpl(this.user);
 
@@ -22,11 +24,12 @@ class UserSettingsRepositoryImpl implements UserSettingsRepository {
   Future<UserSettingsData> load() async {
     await Future<void>.delayed(const Duration(milliseconds: 500));
 
-    return const UserSettingsData(someProperty: true);
+    return _mockUsersStorage[user.name] ??
+        const UserSettingsData(someProperty: true);
   }
 
   @override
   Future<void> save(UserSettingsData settings) async {
-    // save settings
+    _mockUsersStorage[user.name] = settings;
   }
 }

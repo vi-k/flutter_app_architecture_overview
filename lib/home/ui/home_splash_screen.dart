@@ -6,10 +6,8 @@ import 'package:user_scope/core.dart';
 
 class HomeSplashScreen extends StatelessWidget {
   const HomeSplashScreen(
-      // this.state, {
-      {
+    this.state, {
     super.key,
-    this.state = const UserScopeIdle(),
   });
 
   final UserScopeState state;
@@ -60,16 +58,13 @@ class HomeSplashScreen extends StatelessWidget {
         title: const Text(Strings.homeTitle),
       ),
       backgroundColor: background,
-      body: const Center(
-        child: Text('Wait...'),
+      body: DefaultTextStyle(
+        style: TextStyle(color: color),
+        child: Padding(
+          padding: const EdgeInsets.all(Sizes.defaultSpacing),
+          child: content,
+        ),
       ),
-      // body: DefaultTextStyle(
-      //   style: TextStyle(color: color),
-      //   child: Padding(
-      //     padding: const EdgeInsets.all(Sizes.defaultSpacing),
-      //     child: content,
-      //   ),
-      // ),
     );
   }
 }
