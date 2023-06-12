@@ -9,6 +9,7 @@ class Strings {
 
   static const String homeTitle = appName;
   static const String appSomeProperty = 'App some property';
+  static const String userSomeProperty = 'User some property';
   static const String oneMoreScreen = 'One more screen';
   static const String logout = 'Logout';
 }

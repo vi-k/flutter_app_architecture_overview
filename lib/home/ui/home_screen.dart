@@ -71,7 +71,7 @@ class _AppSettingsView extends StatelessWidget {
 //     final settings = UserSettings.of(context);
 
 //     return SwitchListTile(
-//       title: const Text('User settings:'),
+//       title: const Text(Strings.userSomeProperty),
 //       value: settings.someProperty,
 //       onChanged: (value) {
 //         // ignore: discarded_futures
