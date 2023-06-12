@@ -63,6 +63,27 @@ class _AppSettingsView extends StatelessWidget {
   }
 }
 
+// class _UserSettingsView extends StatelessWidget {
+//   const _UserSettingsView();
+
+//   @override
+//   Widget build(BuildContext context) {
+//     final settings = UserSettings.of(context);
+
+//     return SwitchListTile(
+//       title: const Text('User settings:'),
+//       value: settings.someProperty,
+//       onChanged: (value) {
+//         // ignore: discarded_futures
+//         UserSettings.update(
+//           context,
+//           settings.copyWith(someProperty: value),
+//         );
+//       },
+//     );
+//   }
+// }
+
 class _OneMoreScreen extends StatelessWidget {
   const _OneMoreScreen(this.user);
 
@@ -84,3 +105,39 @@ class _OneMoreScreen extends StatelessWidget {
         ),
       );
 }
+
+// class _AuthSelector extends StatelessWidget {
+//   const _AuthSelector();
+
+//   @override
+//   Widget build(BuildContext context) => ListTile(
+//         title: Wrap(
+//           alignment: WrapAlignment.spaceEvenly,
+//           spacing: Sizes.defaultSpacing,
+//           runSpacing: Sizes.defaultSpacing,
+//           children: [
+//             ElevatedButton(
+//               onPressed: () {
+//                 // ignore: discarded_futures
+//                 Auth.of(context).login(Strings.user1);
+//               },
+//               child: const Text(Strings.user1),
+//             ),
+//             ElevatedButton(
+//               onPressed: () {
+//                 // ignore: discarded_futures
+//                 Auth.of(context).login(Strings.user2);
+//               },
+//               child: const Text(Strings.user2),
+//             ),
+//             ElevatedButton(
+//               onPressed: () {
+//                 // ignore: discarded_futures
+//                 Auth.of(context).logout();
+//               },
+//               child: const Text(Strings.logout),
+//             ),
+//           ],
+//         ),
+//       );
+// }

@@ -71,7 +71,7 @@ class _AppSettingsInheritedWidget extends InheritedWidget {
 
   static _AppSettingsInheritedWidget of(
     BuildContext context, {
-    bool listen = true,
+    required bool listen,
   }) =>
       listen
           ? context.dependOnInheritedWidgetOfExactType<
