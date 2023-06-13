@@ -16,6 +16,7 @@ dependencies:
     path: packages/common
   flutter:
     sdk: flutter
+  rxdart: ^0.27.7
   user_scope:
     path: packages/user_scope
 

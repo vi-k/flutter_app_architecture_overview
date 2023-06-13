@@ -1,6 +1,7 @@
 import 'dart:async';
 import 'dart:developer';
 
+import 'package:rxdart/rxdart.dart';
 import 'package:user_scope/core.dart';
 
 import 'search_state.dart';
@@ -41,12 +42,14 @@ class SearchBloc implements Sink<SearchEvent> {
   Future<void> close() => _streamController.sink.close();
 
   late final Stream<SearchState> _stream = _streamController.stream
+      .debounceTime(const Duration(milliseconds: 300))
       .map((event) {
         log('event: $event');
 
         return event;
       })
-      .asyncExpand(mapEventToStates)
+      // .asyncExpand(mapEventToStates)
+      .switchMap(mapEventToStates)
       .map((state) {
         log('state: $state');
 
