@@ -1,4 +1,4 @@
-import 'package:auth/ioc.dart';
+import 'package:auth/dependencies.dart';
 import 'package:common/constants.dart';
 import 'package:common/ui.dart';
 import 'package:flutter/material.dart';

@@ -3,7 +3,7 @@ import 'package:common/ui.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_app_architecture_overview/search/core/search_observable.dart';
 import 'package:flutter_app_architecture_overview/search/ui/search_last_results.dart';
-import 'package:user_scope/ioc.dart';
+import 'package:user_scope/dependencies.dart';
 
 import '../core/search_bloc.dart';
 import '../core/search_publisher.dart';
@@ -22,7 +22,6 @@ class SearchScreen extends StatefulWidget {
 class SearchScreenState extends State<SearchScreen> {
   final textController = TextEditingController();
   final focusNode = FocusNode();
-  final autoSearch = ValueNotifier(false);
   late final SearchObservable searchObservable;
   late final SearchPublisher searchPublisher;
   late final SearchBloc searchBloc;
@@ -41,7 +40,6 @@ class SearchScreenState extends State<SearchScreen> {
   @override
   void dispose() {
     textController.dispose();
-    autoSearch.dispose();
     searchObservable.dispose();
     // ignore: discarded_futures
     searchPublisher.dispose();
@@ -109,61 +107,20 @@ class _SearchInput extends StatelessWidget {
   Widget build(BuildContext context) {
     final screenState = SearchScreen.of(context);
 
-    return ValueListenableBuilder<bool>(
-      valueListenable: screenState.autoSearch,
-      builder: (_, autoSearch, __) => Row(
-        crossAxisAlignment: CrossAxisAlignment.start,
-        children: [
-          Expanded(
-            child: TextFormField(
-              controller: screenState.textController,
-              autofocus: true,
-              focusNode: screenState.focusNode,
-              onChanged: autoSearch
-                  ? (value) {
-                      // ignore: discarded_futures
-                      screenState.searchObservable.search(value);
-                      // ignore: discarded_futures
-                      screenState.searchPublisher.search(value);
-                      screenState.searchBloc.add(Search(value));
-                    }
-                  : null,
-              onFieldSubmitted: (value) {
-                screenState.focusNode.requestFocus();
-                screenState.textController.clear();
-
-                // ignore: discarded_futures
-                screenState.searchObservable.search(value);
-                // ignore: discarded_futures
-                screenState.searchPublisher.search(value);
-                screenState.searchBloc.add(Search(value));
-              },
-              decoration: const InputDecoration(
-                label: Text(Strings.searchLabel),
-                floatingLabelBehavior: FloatingLabelBehavior.auto,
-              ),
-            ),
-          ),
-          const HorizontalSpacer(),
-          Column(
-            mainAxisSize: MainAxisSize.min,
-            children: [
-              const Text(
-                Strings.searchAuto,
-                style: TextStyle(fontSize: 11),
-              ),
-              ValueListenableBuilder(
-                valueListenable: screenState.autoSearch,
-                builder: (_, autoSearch, __) => Switch(
-                  value: autoSearch,
-                  onChanged: (value) {
-                    screenState.autoSearch.value = value;
-                  },
-                ),
-              ),
-            ],
-          ),
-        ],
+    return TextFormField(
+      controller: screenState.textController,
+      autofocus: true,
+      focusNode: screenState.focusNode,
+      onChanged: (value) {
+        // ignore: discarded_futures
+        screenState.searchObservable.search(value);
+        // ignore: discarded_futures
+        screenState.searchPublisher.search(value);
+        screenState.searchBloc.add(Search(value));
+      },
+      decoration: const InputDecoration(
+        label: Text(Strings.searchLabel),
+        floatingLabelBehavior: FloatingLabelBehavior.auto,
       ),
     );
   }

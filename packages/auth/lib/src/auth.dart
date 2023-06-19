@@ -1,5 +1,5 @@
 import 'package:app_scope/core.dart';
-import 'package:app_scope/ioc.dart';
+import 'package:app_scope/dependencies.dart';
 import 'package:flutter/material.dart';
 
 class Auth extends StatefulWidget {

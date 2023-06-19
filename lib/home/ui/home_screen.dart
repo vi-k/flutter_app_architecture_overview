@@ -1,8 +1,8 @@
-import 'package:app_scope/ioc.dart';
-import 'package:auth/ioc.dart';
+import 'package:app_scope/dependencies.dart';
+import 'package:auth/dependencies.dart';
 import 'package:common/constants.dart';
 import 'package:flutter/material.dart';
-import 'package:user_scope/ioc.dart';
+import 'package:user_scope/dependencies.dart';
 
 import '../../search/ui/search_screen.dart';
 

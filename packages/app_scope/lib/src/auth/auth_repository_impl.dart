@@ -16,7 +16,7 @@ class AuthRepositoryImpl implements AuthRepository {
   Future<void> init() async {
     await Future<void>.delayed(const Duration(milliseconds: 200));
 
-    _controller = StreamController<UserData?>();
+    _controller = StreamController<UserData?>.broadcast();
   }
 
   @override

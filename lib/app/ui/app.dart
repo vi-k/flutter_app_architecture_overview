@@ -1,19 +1,27 @@
-import 'package:app_scope/details.dart';
-import 'package:app_scope/ioc.dart';
-import 'package:auth/ioc.dart';
+import 'dart:async';
+
+import 'package:app_scope/dependencies.dart';
+import 'package:app_scope/implementations.dart';
+import 'package:auth/dependencies.dart';
 import 'package:common/constants.dart';
 import 'package:common/ui.dart';
 import 'package:flutter/material.dart';
-import 'package:user_scope/details.dart';
-import 'package:user_scope/ioc.dart';
+import 'package:user_scope/dependencies.dart';
+import 'package:user_scope/implementations.dart';
 
 import '../../home/ui/home_screen.dart';
 import '../../home/ui/home_splash_screen.dart';
 import '../../login/ui/login.dart';
 import 'splash_screen.dart';
+import 'uncaught_exceptions.dart';
 
 class App extends StatefulWidget {
-  const App({super.key});
+  const App({
+    super.key,
+    required this.uncaughtExceptions,
+  });
+
+  final Stream<void> uncaughtExceptions;
 
   @override
   State<App> createState() => _AppState();
@@ -31,21 +39,25 @@ class _AppState extends State<App> {
           ),
           useMaterial3: true,
         ),
-        home: AppScope(
-          init: AppScopeDependenciesImpl.init,
-          initialization: (_, state) => SplashScreen(state),
-          initialized: (_) => Auth(
-            notAuthorized: (_) => const LoginScreen(),
-            authorized: (_, user) => KeyedSubtree(
-              key: ValueKey(user),
-              child: User(
-                user: user,
-                child: UserScope(
+        home: UncaughtExceptions(
+          uncaughtExceptions: widget.uncaughtExceptions,
+          child: AppScope(
+            init: AppScopeDependenciesImpl.init,
+            initialization: (_, step) => SplashScreen(step),
+            initialized: (_) => AppSettings(
+              child: Auth(
+                notAuthorized: (_) => const LoginScreen(),
+                authorized: (_, user) => User(
+                  key: ValueKey(user),
                   user: user,
-                  init: UserScopeDependenciesImpl.init,
-                  initialization: (_, state) => HomeSplashScreen(state),
-                  initialized: (_) => const Node(
-                    child: HomeScreen(),
+                  child: UserScope(
+                    init: UserScopeDependenciesImpl.init,
+                    initialization: (_, step) => HomeSplashScreen(step),
+                    initialized: (_) => const UserSettings(
+                      child: Node(
+                        child: HomeScreen(),
+                      ),
+                    ),
                   ),
                 ),
               ),

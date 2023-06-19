@@ -1,8 +1,9 @@
 import 'package:app_scope/core.dart';
 import 'package:user_scope/core.dart';
 
-import 'search/search_repository_impl.dart';
-import 'user_settings/user_settings_repository_impl.dart';
+import '../search/search_repository_impl.dart';
+import '../user_settings/user_settings_repository_impl.dart';
+import 'user_scope_state.dart';
 
 final class UserScopeDependenciesImpl implements UserScopeDependencies {
   UserScopeDependenciesImpl._(
@@ -41,15 +42,15 @@ final class UserScopeDependenciesImpl implements UserScopeDependencies {
           searchRepository,
         ),
       );
-    } on Object catch (error, stackTrace) {
-      yield UserScopeFailed('Something went wrong', error, stackTrace);
-
+    } on Object {
       await Future.wait(
         [
           userSettingsRepository?.dispose(),
           searchRepository?.dispose(),
         ].whereType(),
       );
+
+      rethrow;
     }
   }
 

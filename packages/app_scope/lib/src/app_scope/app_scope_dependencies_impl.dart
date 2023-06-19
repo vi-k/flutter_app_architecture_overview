@@ -1,8 +1,9 @@
 import 'package:app_scope/core.dart';
 
-import 'app_settings/app_settings_repository_impl.dart';
-import 'app_storage/app_storage_repository_impl.dart';
-import 'auth/auth_repository_impl.dart';
+import '../app_settings/app_settings_repository_impl.dart';
+import '../app_storage/app_storage_repository_impl.dart';
+import '../auth/auth_repository_impl.dart';
+import 'app_scope_state.dart';
 
 final class AppScopeDependenciesImpl implements AppScopeDependencies {
   AppScopeDependenciesImpl._(
@@ -51,9 +52,7 @@ final class AppScopeDependenciesImpl implements AppScopeDependencies {
           authRepository,
         ),
       );
-    } on Object catch (error, stackTrace) {
-      yield AppScopeFailed('Something went wrong', error, stackTrace);
-
+    } on Object {
       await Future.wait(
         [
           appStorageRepository?.dispose(),
@@ -61,6 +60,8 @@ final class AppScopeDependenciesImpl implements AppScopeDependencies {
           authRepository?.dispose(),
         ].whereType(),
       );
+
+      rethrow;
     }
   }
 

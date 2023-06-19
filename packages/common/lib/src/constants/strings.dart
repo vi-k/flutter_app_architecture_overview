@@ -20,4 +20,5 @@ class Strings {
   static const String searchClear = 'Clear history';
 
   static const String ok = 'OK';
+  static const String uncaughtExceptionTitle = 'Something went wrong';
 }

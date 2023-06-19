@@ -57,7 +57,6 @@ class SearchBloc implements Sink<SearchEvent> {
       })
       .asBroadcastStream();
 
-  Sink<SearchEvent> get sink => _streamController.sink;
   Stream<SearchState> get stream => _stream;
 
   Future<void> dispose() async {

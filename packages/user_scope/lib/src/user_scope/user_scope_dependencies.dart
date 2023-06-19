@@ -1,6 +1,4 @@
-import 'search/search_repository.dart';
-import 'user_settings/user_settings_data.dart';
-import 'user_settings/user_settings_repository.dart';
+import 'package:user_scope/core.dart';
 
 abstract interface class UserScopeDependencies {
   UserSettingsRepository get userSettingsRepository;

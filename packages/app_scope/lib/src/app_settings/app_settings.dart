@@ -1,7 +1,7 @@
 import 'package:app_scope/core.dart';
 import 'package:flutter/material.dart';
 
-import 'app_scope.dart';
+import '../app_scope/app_scope.dart';
 
 class AppSettings extends StatefulWidget {
   const AppSettings({
