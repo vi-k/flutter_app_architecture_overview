@@ -3,7 +3,7 @@ import 'package:common/ui.dart';
 import 'package:flutter/foundation.dart';
 import 'package:flutter/material.dart';
 
-class UncaughtExceptions extends StatelessWidget {
+class UncaughtExceptions extends StatefulWidget {
   const UncaughtExceptions({
     super.key,
     required this.uncaughtExceptions,
@@ -14,20 +14,39 @@ class UncaughtExceptions extends StatelessWidget {
   final Widget child;
 
   @override
-  Widget build(BuildContext context) => StreamBuilder<void>(
-        stream: uncaughtExceptions,
-        builder: (context, snapshot) {
-          if (!snapshot.hasError) return child;
+  State<UncaughtExceptions> createState() => _UncaughtExceptionsState();
+}
 
-          return !kDebugMode
-              ? const _Failed()
-              : _DebugFailed(snapshot.error!, snapshot.stackTrace!);
-        },
-      );
+class _UncaughtExceptionsState extends State<UncaughtExceptions> {
+  final _errors = <(Object, StackTrace)>[];
+
+  @override
+  void initState() {
+    super.initState();
+
+    widget.uncaughtExceptions.listen(
+      (event) {},
+      // ignore: avoid_types_on_closure_parameters
+      onError: (Object error, StackTrace stackTrace) {
+        setState(() {
+          _errors.insert(0, (error, stackTrace));
+        });
+      },
+    );
+  }
+
+  @override
+  Widget build(BuildContext context) => _errors.isEmpty
+      ? widget.child
+      : kDebugMode
+          ? _DebugFailed(_errors)
+          : _Failed(_errors);
 }
 
 class _Failed extends StatelessWidget {
-  const _Failed();
+  const _Failed(this.errors);
+
+  final List<(Object, StackTrace)> errors;
 
   @override
   Widget build(BuildContext context) => const Scaffold(
@@ -41,10 +60,9 @@ class _Failed extends StatelessWidget {
 }
 
 class _DebugFailed extends StatelessWidget {
-  const _DebugFailed(this.error, this.stackTrace);
+  const _DebugFailed(this.errors);
 
-  final Object error;
-  final StackTrace stackTrace;
+  final List<(Object, StackTrace)> errors;
 
   @override
   Widget build(BuildContext context) {
@@ -58,9 +76,14 @@ class _DebugFailed extends StatelessWidget {
           padding: const EdgeInsets.all(Sizes.defaultSpacing),
           child: ListView(
             children: [
-              Text(error.toString()),
-              const VerticalSpacer(),
-              Text(stackTrace.toString()),
+              for (final (index, (error, stackTrace)) in errors.indexed) ...[
+                if (index != 0) ...[
+                  const Divider(),
+                ],
+                Text(error.toString()),
+                const VerticalSpacer(),
+                Text(stackTrace.toString()),
+              ],
             ],
           ),
         ),

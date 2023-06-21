@@ -11,7 +11,7 @@ void main() {
   final uncaughtExceptionsController = StreamController<void>.broadcast();
   PlatformDispatcher.instance.onError = (error, stackTrace) {
     log(
-      'Uncaught exception',
+      'Uncaught exception:',
       error: error,
       stackTrace: stackTrace,
     );
@@ -23,7 +23,7 @@ void main() {
 
   FlutterError.onError = (details) {
     log(
-      'Uncaught exception',
+      'Uncaught exception:',
       error: details.exception,
       stackTrace: details.stack,
     );
