@@ -19,7 +19,7 @@ class UncaughtExceptions extends StatelessWidget {
         builder: (context, snapshot) {
           if (!snapshot.hasError) return child;
 
-          return kDebugMode
+          return !kDebugMode
               ? const _Failed()
               : _DebugFailed(snapshot.error!, snapshot.stackTrace!);
         },
