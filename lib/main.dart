@@ -16,6 +16,8 @@ void main() {
       stackTrace: stackTrace,
     );
 
+    uncaughtExceptionsController.addError(error, stackTrace);
+
     return true;
   };
 

@@ -56,17 +56,13 @@ class _DebugFailed extends StatelessWidget {
         style: TextStyle(color: colorScheme.onError),
         child: Padding(
           padding: const EdgeInsets.all(Sizes.defaultSpacing),
-          child: kDebugMode
-              ? const Center(
-                  child: Text(Strings.uncaughtExceptionTitle),
-                )
-              : ListView(
-                  children: [
-                    Text(error.toString()),
-                    const VerticalSpacer(),
-                    Text(stackTrace.toString()),
-                  ],
-                ),
+          child: ListView(
+            children: [
+              Text(error.toString()),
+              const VerticalSpacer(),
+              Text(stackTrace.toString()),
+            ],
+          ),
         ),
       ),
     );
