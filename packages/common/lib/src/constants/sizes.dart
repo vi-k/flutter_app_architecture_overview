@@ -1,6 +1,4 @@
-class Sizes {
-  const Sizes._();
-
+abstract interface class Sizes {
   static const double defaultSpacing = 10;
-  static const double searchProgressIndicatorSize = 10;
+  static const double concurencyDemoProgressIndicatorSize = 10;
 }

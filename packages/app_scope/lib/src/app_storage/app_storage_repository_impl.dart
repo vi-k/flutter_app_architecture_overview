@@ -1,9 +1,10 @@
 import 'package:app_scope/core.dart';
+import 'package:common/constants.dart';
 
 class AppStorageRepositoryImpl implements AppStorageRepository {
   @override
   Future<void> init() async {
-    await Future<void>.delayed(const Duration(milliseconds: 200));
+    await Future<void>.delayed(Constants.demoActionDuration);
   }
 
   @override

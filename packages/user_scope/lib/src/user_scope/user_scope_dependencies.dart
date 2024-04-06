@@ -3,7 +3,7 @@ import 'package:user_scope/core.dart';
 abstract interface class UserScopeDependencies {
   UserSettingsRepository get userSettingsRepository;
   UserSettingsData get initialUserSettings;
-  SearchRepository get searchRepository;
+  ConcurencyDemoRepository get concurencyDemoRepository;
 
   Future<void> dispose();
 }

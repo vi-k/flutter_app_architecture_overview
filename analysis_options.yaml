@@ -1,10 +1,6 @@
 include: package:flutter_lints/flutter.yaml
 
 analyzer:
-  enable-experiment:
-    - records
-    - patterns
-
   exclude:
     # Web
     - 'web/**'
@@ -69,7 +65,7 @@ linter:
     comment_references: true
     # control_flow_in_finally: true # [recommended]
     # diagnostic_describe_all_properties: true
-    discarded_futures: true # DON'T invoke asynchronous functions in non-async blocks.
+    # discarded_futures: true # DON'T invoke asynchronous functions in non-async blocks.
     # empty_statements: true # [recommended]
     # hash_and_equals: true # [core]
     invalid_case_patterns: true

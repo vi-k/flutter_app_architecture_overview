@@ -39,14 +39,12 @@ class _Users extends StatelessWidget {
         children: [
           ElevatedButton(
             onPressed: () {
-              // ignore: discarded_futures
               Auth.of(context).login(Strings.user1);
             },
             child: const Text(Strings.user1),
           ),
           ElevatedButton(
             onPressed: () {
-              // ignore: discarded_futures
               Auth.of(context).login(Strings.user2);
             },
             child: const Text(Strings.user2),

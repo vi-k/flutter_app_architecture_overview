@@ -44,9 +44,15 @@ class _Greetings extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) => ListTile(
-        title: Text(
-          'Hello ${User.of(context).name}',
-          textAlign: TextAlign.center,
+        title: DefaultTextStyle(
+          style: DefaultTextStyle.of(context).style.apply(
+                fontSizeFactor: 1.7,
+                fontWeightDelta: 2,
+              ),
+          child: Text(
+            'Hello ${User.of(context).name}',
+            textAlign: TextAlign.center,
+          ),
         ),
       );
 }

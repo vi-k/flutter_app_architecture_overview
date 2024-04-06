@@ -1,6 +1,7 @@
 import 'dart:async';
 
 import 'package:app_scope/core.dart';
+import 'package:common/constants.dart';
 
 class AuthRepositoryImpl implements AuthRepository {
   UserData? _user;
@@ -14,7 +15,7 @@ class AuthRepositoryImpl implements AuthRepository {
 
   @override
   Future<void> init() async {
-    await Future<void>.delayed(const Duration(milliseconds: 200));
+    await Future<void>.delayed(Constants.demoActionDuration);
 
     _controller = StreamController<UserData?>.broadcast();
   }
@@ -26,14 +27,14 @@ class AuthRepositoryImpl implements AuthRepository {
 
   @override
   Future<void> login(String name) async {
-    await Future<void>.delayed(const Duration(milliseconds: 200));
+    await Future<void>.delayed(Constants.demoActionDuration);
 
     _setUser(UserData(name: name));
   }
 
   @override
   Future<void> logout() async {
-    await Future<void>.delayed(const Duration(milliseconds: 200));
+    await Future<void>.delayed(Constants.demoActionDuration);
 
     _setUser(null);
   }

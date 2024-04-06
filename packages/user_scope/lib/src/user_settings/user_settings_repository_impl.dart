@@ -1,6 +1,7 @@
 import 'dart:async';
 
 import 'package:app_scope/core.dart';
+import 'package:common/constants.dart';
 
 import 'user_settings_data.dart';
 import 'user_settings_repository.dart';
@@ -14,7 +15,7 @@ class UserSettingsRepositoryImpl implements UserSettingsRepository {
 
   @override
   Future<void> init() async {
-    await Future<void>.delayed(const Duration(milliseconds: 200));
+    await Future<void>.delayed(Constants.demoActionDuration);
   }
 
   @override
@@ -22,7 +23,7 @@ class UserSettingsRepositoryImpl implements UserSettingsRepository {
 
   @override
   Future<UserSettingsData> load() async {
-    await Future<void>.delayed(const Duration(milliseconds: 200));
+    await Future<void>.delayed(Constants.demoActionDuration);
 
     return _mockUsersStorage[user.name] ??
         const UserSettingsData(someProperty: true);

@@ -1,10 +1,11 @@
 import 'package:app_scope/dependencies.dart';
 import 'package:auth/dependencies.dart';
 import 'package:common/constants.dart';
+import 'package:common/ui.dart';
 import 'package:flutter/material.dart';
 import 'package:user_scope/dependencies.dart';
 
-import '../../search/ui/search_screen.dart';
+import '../../concurency_demo/ui/concurency_demo_screen.dart';
 
 class HomeScreen extends StatefulWidget {
   const HomeScreen({super.key});
@@ -22,11 +23,14 @@ class _HomeScreenState extends State<HomeScreen> {
         body: ListView(
           children: const [
             _Greetings(),
+            _Description(),
             _AppSettingsView(),
             _UserSettingsView(),
-            _OneMoreScreen(),
-            _Search(),
             _AuthSelector(),
+            Divider(),
+            _OneMoreScreen(),
+            Divider(),
+            _ConcurencyDemo(),
           ],
         ),
       );
@@ -37,10 +41,28 @@ class _Greetings extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) => ListTile(
-        title: Text(
-          'Hello ${User.of(context).name}',
-          textAlign: TextAlign.center,
+        title: Builder(
+          builder: (context) => DefaultTextStyle(
+            style: DefaultTextStyle.of(context).style.apply(
+                  fontSizeFactor: 1.8,
+                  fontWeightDelta: 2,
+                ),
+            child: Text(
+              'Hello ${User.of(context).name}',
+              textAlign: TextAlign.center,
+            ),
+          ),
         ),
+      );
+}
+
+class _Description extends StatelessWidget {
+  const _Description();
+
+  @override
+  Widget build(BuildContext context) => const Padding(
+        padding: EdgeInsets.all(Sizes.defaultSpacing),
+        child: Text(Strings.homeDescription),
       );
 }
 
@@ -55,7 +77,6 @@ class _AppSettingsView extends StatelessWidget {
       value: settings.someProperty,
       title: const Text(Strings.appSomeProperty),
       onChanged: (value) {
-        // ignore: discarded_futures
         AppSettings.update(
           context,
           settings.copyWith(someProperty: value),
@@ -76,7 +97,6 @@ class _UserSettingsView extends StatelessWidget {
       title: const Text(Strings.userSomeProperty),
       value: settings.someProperty,
       onChanged: (value) {
-        // ignore: discarded_futures
         UserSettings.update(
           context,
           settings.copyWith(someProperty: value),
@@ -84,46 +104,6 @@ class _UserSettingsView extends StatelessWidget {
       },
     );
   }
-}
-
-class _OneMoreScreen extends StatelessWidget {
-  const _OneMoreScreen();
-
-  @override
-  Widget build(BuildContext context) => ListTile(
-        title: ElevatedButton(
-          onPressed: () {
-            // ignore: discarded_futures
-            Navigator.push<void>(
-              context,
-              MaterialPageRoute(
-                builder: (_) => const HomeScreen(),
-              ),
-            );
-          },
-          child: const Text(Strings.oneMoreScreen),
-        ),
-      );
-}
-
-class _Search extends StatelessWidget {
-  const _Search();
-
-  @override
-  Widget build(BuildContext context) => ListTile(
-        title: ElevatedButton(
-          onPressed: () {
-            // ignore: discarded_futures
-            Navigator.push(
-              context,
-              MaterialPageRoute<void>(
-                builder: (_) => const SearchScreen(),
-              ),
-            );
-          },
-          child: const Text(Strings.searchTitle),
-        ),
-      );
 }
 
 class _AuthSelector extends StatelessWidget {
@@ -138,26 +118,81 @@ class _AuthSelector extends StatelessWidget {
           children: [
             ElevatedButton(
               onPressed: () {
-                // ignore: discarded_futures
                 Auth.of(context).login(Strings.user1);
               },
               child: const Text(Strings.user1),
             ),
             ElevatedButton(
               onPressed: () {
-                // ignore: discarded_futures
                 Auth.of(context).login(Strings.user2);
               },
               child: const Text(Strings.user2),
             ),
             ElevatedButton(
               onPressed: () {
-                // ignore: discarded_futures
                 Auth.of(context).logout();
               },
               child: const Text(Strings.logout),
             ),
           ],
         ),
+      );
+}
+
+class _OneMoreScreen extends StatelessWidget {
+  const _OneMoreScreen();
+
+  @override
+  Widget build(BuildContext context) => Column(
+        crossAxisAlignment: CrossAxisAlignment.stretch,
+        children: [
+          const Padding(
+            padding: EdgeInsets.all(Sizes.defaultSpacing),
+            child: Text(Strings.oneMoreDescription),
+          ),
+          ListTile(
+            title: ElevatedButton(
+              onPressed: () {
+                Navigator.push<void>(
+                  context,
+                  MaterialPageRoute(
+                    builder: (_) => const NavigationNode(
+                      child: HomeScreen(),
+                    ),
+                  ),
+                );
+              },
+              child: const Text(Strings.oneMoreScreen),
+            ),
+          ),
+        ],
+      );
+}
+
+class _ConcurencyDemo extends StatelessWidget {
+  const _ConcurencyDemo();
+
+  @override
+  Widget build(BuildContext context) => Column(
+        crossAxisAlignment: CrossAxisAlignment.stretch,
+        children: [
+          const Padding(
+            padding: EdgeInsets.all(Sizes.defaultSpacing),
+            child: Text(Strings.concurencyDemoHomeDescription),
+          ),
+          ListTile(
+            title: ElevatedButton(
+              onPressed: () {
+                Navigator.push(
+                  context,
+                  MaterialPageRoute<void>(
+                    builder: (_) => const ConcurencyDemoScreen(),
+                  ),
+                );
+              },
+              child: const Text(Strings.concurencyDemoTitle),
+            ),
+          ),
+        ],
       );
 }

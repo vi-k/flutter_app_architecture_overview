@@ -1,11 +1,11 @@
 name: flutter_app_architecture_overview
-description: A new Flutter project.
-publish_to: 'none' # Remove this line if you wish to publish to pub.dev
+description: Flutter App Architecture Overview.
+publish_to: 'none'
 
-version: 1.0.0+1
+version: 1.1.0
 
 environment:
-  sdk: '>=3.1.0-89.0.dev <4.0.0'
+  sdk: '>=3.3.0 <4.0.0'
 
 dependencies:
   app_scope:
@@ -21,7 +21,7 @@ dependencies:
     path: packages/user_scope
 
 dev_dependencies:
-  flutter_lints: ^2.0.0
+  flutter_lints: ^3.0.0
   flutter_test:
     sdk: flutter
 

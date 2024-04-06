@@ -1,13 +1,14 @@
 import 'dart:async';
 
 import 'package:app_scope/core.dart';
+import 'package:common/constants.dart';
 
 class AppSettingsRepositoryImpl implements AppSettingsRepository {
   AppSettingsRepositoryImpl();
 
   @override
   Future<void> init() async {
-    await Future<void>.delayed(const Duration(milliseconds: 200));
+    await Future<void>.delayed(Constants.demoActionDuration);
   }
 
   @override
@@ -15,7 +16,7 @@ class AppSettingsRepositoryImpl implements AppSettingsRepository {
 
   @override
   Future<AppSettingsData> load() async {
-    await Future<void>.delayed(const Duration(milliseconds: 200));
+    await Future<void>.delayed(Constants.demoActionDuration);
 
     return const AppSettingsData(someProperty: true);
   }

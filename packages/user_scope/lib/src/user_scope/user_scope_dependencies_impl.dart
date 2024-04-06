@@ -1,7 +1,7 @@
 import 'package:app_scope/core.dart';
 import 'package:user_scope/core.dart';
 
-import '../search/search_repository_impl.dart';
+import '../concurency_demo/concurency_demo_repository_impl.dart';
 import '../user_settings/user_settings_repository_impl.dart';
 import 'user_scope_state.dart';
 
@@ -9,7 +9,7 @@ final class UserScopeDependenciesImpl implements UserScopeDependencies {
   UserScopeDependenciesImpl._(
     this.userSettingsRepository,
     this.initialUserSettings,
-    this.searchRepository,
+    this.concurencyDemoRepository,
   );
 
   @override
@@ -19,11 +19,11 @@ final class UserScopeDependenciesImpl implements UserScopeDependencies {
   final UserSettingsData initialUserSettings;
 
   @override
-  final SearchRepository searchRepository;
+  final ConcurencyDemoRepository concurencyDemoRepository;
 
   static Stream<UserScopeState> init(UserData user) async* {
     UserSettingsRepository? userSettingsRepository;
-    SearchRepository? searchRepository;
+    ConcurencyDemoRepository? concurencyDemoRepository;
 
     try {
       yield const UserScopeInitialization('settings');
@@ -31,22 +31,22 @@ final class UserScopeDependenciesImpl implements UserScopeDependencies {
       await userSettingsRepository.init();
       final initialUserSettings = await userSettingsRepository.load();
 
-      yield const UserScopeInitialization('search');
-      searchRepository = SearchRepositoryImpl(user);
-      await searchRepository.init();
+      yield const UserScopeInitialization('concurency demo');
+      concurencyDemoRepository = ConcurencyDemoRepositoryImpl(user);
+      await concurencyDemoRepository.init();
 
       yield UserScopeInitialized(
         UserScopeDependenciesImpl._(
           userSettingsRepository,
           initialUserSettings,
-          searchRepository,
+          concurencyDemoRepository,
         ),
       );
     } on Object {
       await Future.wait(
         [
           userSettingsRepository?.dispose(),
-          searchRepository?.dispose(),
+          concurencyDemoRepository?.dispose(),
         ].whereType(),
       );
 
@@ -58,7 +58,7 @@ final class UserScopeDependenciesImpl implements UserScopeDependencies {
   Future<void> dispose() => Future.wait(
         [
           userSettingsRepository.dispose(),
-          searchRepository.dispose(),
+          concurencyDemoRepository.dispose(),
         ],
       );
 }

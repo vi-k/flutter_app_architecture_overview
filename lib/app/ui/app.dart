@@ -54,7 +54,7 @@ class _AppState extends State<App> {
                     init: UserScopeDependenciesImpl.init,
                     initialization: (_, step) => HomeSplashScreen(step),
                     initialized: (_) => const UserSettings(
-                      child: Node(
+                      child: NavigationNode(
                         child: HomeScreen(),
                       ),
                     ),
